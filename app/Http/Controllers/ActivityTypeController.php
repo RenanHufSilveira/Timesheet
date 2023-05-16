@@ -27,4 +27,60 @@ class ActivityTypeController extends Controller
     {
         return ActivityType::findOrFail($id);
     }
+
+    public function store(Request $request)
+    {
+        $sucess = false;
+        $activityType = new ActivityType();
+        $activityType->name = $request->name;
+        $activityType->description = $request->description;
+        
+        if($activityType->save()) {
+            $sucess = true;
+        }
+
+        return response()
+                    ->json(
+                        [
+                            'sucess' => $sucess, 
+                            'object' => $activityType
+                        ]
+                    );
+    }
+
+    public function update(Request $request, $id)
+    {
+        $sucess = false;
+        $activityType = ActivityType::findOrFail($id);
+        $activityType->name = $request->name;
+        $activityType->description = $request->description;
+        
+        if($activityType->save()) {
+            $sucess = true;
+        }
+
+        return response()
+                    ->json(
+                        [
+                            'sucess' => $sucess, 
+                            'object' => $activityType
+                        ]
+                    );
+    }
+
+    public function destroy($id)
+    {
+        $sucess = false;
+        
+        if(ActivityType::destroy($id)) {
+            $sucess = true;
+        }
+
+        return response()
+                    ->json(
+                        [
+                            'sucess' => $sucess
+                        ]
+                    );
+    }
 }
