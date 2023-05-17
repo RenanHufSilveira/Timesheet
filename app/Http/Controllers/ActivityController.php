@@ -33,7 +33,7 @@ class ActivityController extends Controller
         $activity = new Activity();
         $activity->name = $request->name;
         $activity->description = $request->description;
-        $activity->activity_type_id = $request->activitytype;
+        $activity->activity_types_id = $request->activitytype;
 
         if($activity->save()) {
             $sucess = true;

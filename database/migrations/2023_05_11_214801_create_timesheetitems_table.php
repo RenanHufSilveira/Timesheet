@@ -32,7 +32,7 @@ return new class extends Migration
         $table->foreignId('activities_id')
                 ->constrained()
                 ->onDelete('cascade');
-        $table->foreignId('activities_id')
+        $table->foreignId('time_sheets_id')
                 ->constrained()
                 ->onDelete('cascade');
     }
