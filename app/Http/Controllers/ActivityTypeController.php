@@ -30,19 +30,19 @@ class ActivityTypeController extends Controller
 
     public function store(Request $request)
     {
-        $sucess = false;
+        $success = false;
         $activityType = new ActivityType();
         $activityType->name = $request->name;
         $activityType->description = $request->description;
         
         if($activityType->save()) {
-            $sucess = true;
+            $success = true;
         }
 
         return response()
                     ->json(
                         [
-                            'success' => $sucess, 
+                            'success' => $success, 
                             'object' => $activityType
                         ]
                     );
@@ -50,19 +50,19 @@ class ActivityTypeController extends Controller
 
     public function update(Request $request, $id)
     {
-        $sucess = false;
+        $success = false;
         $activityType = ActivityType::findOrFail($id);
         $activityType->name = $request->name;
         $activityType->description = $request->description;
         
         if($activityType->save()) {
-            $sucess = true;
+            $success = true;
         }
 
         return response()
                     ->json(
                         [
-                            'success' => $sucess, 
+                            'success' => $success, 
                             'object' => $activityType
                         ]
                     );
@@ -70,16 +70,16 @@ class ActivityTypeController extends Controller
 
     public function destroy($id)
     {
-        $sucess = false;
+        $success = false;
         
         if(ActivityType::destroy($id)) {
-            $sucess = true;
+            $success = true;
         }
 
         return response()
                     ->json(
                         [
-                            'success' => $sucess
+                            'success' => $success
                         ]
                     );
     }

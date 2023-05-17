@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivityTypeController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\TimeSheetController;
+use App\Http\Controllers\TimeSheetItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,15 @@ Route::get('/timesheets/{id}', [TimeSheetController::class, 'show']);
 Route::post('/timesheets', [TimeSheetController::class, 'store']);
 Route::put('/timesheets/{id}', [TimeSheetController::class, 'update']);
 Route::delete('/timesheets/{id}', [TimeSheetController::class, 'destroy']);
+
+/**
+ * TimeSheetItems Routes
+ */
+Route::get('/timesheetitems/list', [TimeSheetItemController::class, 'index']);
+Route::get('/timesheetitems/{id}', [TimeSheetItemController::class, 'show']);
+Route::post('/timesheetitems', [TimeSheetItemController::class, 'store']);
+Route::put('/timesheetitems/{id}', [TimeSheetItemController::class, 'update']);
+Route::delete('/timesheetitems/{id}', [TimeSheetItemController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

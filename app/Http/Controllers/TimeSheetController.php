@@ -12,14 +12,14 @@ class TimeSheetController extends Controller
         $search = request('search');
 
         if($search) {
-            $types = TimeSheet::where('name', 'like','%'.$search.'%')
+            $timesheets = TimeSheet::where('name', 'like','%'.$search.'%')
             ->orWhere('id', 'like','%'.$search.'%')
             ->get();
-            return $types;
+            return $timesheets;
         }
 
-        $types = TimeSheet::all();
-        return $types;
+        $timesheets = TimeSheet::all();
+        return $timesheets;
     }
 
     public function show($id)
@@ -29,56 +29,56 @@ class TimeSheetController extends Controller
 
     public function store(Request $request)
     {
-        $sucess = false;
-        $activityType = new TimeSheet();
-        $activityType->name = $request->name;
-        $activityType->description = $request->description;
+        $success = false;
+        $timesheet = new TimeSheet();
+        $timesheet->name = $request->name;
+        $timesheet->description = $request->description;
         
-        if($activityType->save()) {
-            $sucess = true;
+        if($timesheet->save()) {
+            $success = true;
         }
 
         return response()
                     ->json(
                         [
-                            'success' => $sucess, 
-                            'object' => $activityType
+                            'success' => $success, 
+                            'object' => $timesheet
                         ]
                     );
     }
 
     public function update(Request $request, $id)
     {
-        $sucess = false;
-        $activityType = TimeSheet::findOrFail($id);
-        $activityType->name = $request->name;
-        $activityType->description = $request->description;
+        $success = false;
+        $timesheet = TimeSheet::findOrFail($id);
+        $timesheet->name = $request->name;
+        $timesheet->description = $request->description;
         
-        if($activityType->save()) {
-            $sucess = true;
+        if($timesheet->save()) {
+            $success = true;
         }
 
         return response()
                     ->json(
                         [
-                            'success' => $sucess, 
-                            'object' => $activityType
+                            'success' => $success, 
+                            'object' => $timesheet
                         ]
                     );
     }
 
     public function destroy($id)
     {
-        $sucess = false;
+        $success = false;
         
         if(TimeSheet::destroy($id)) {
-            $sucess = true;
+            $success = true;
         }
 
         return response()
                     ->json(
                         [
-                            'success' => $sucess
+                            'success' => $success
                         ]
                     );
     }
