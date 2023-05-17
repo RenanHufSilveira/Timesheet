@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('timesheet_items', function (Blueprint $table) {
+        Schema::create('time_sheet_items', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
             $table->text('description');
             $table->timestamp('started_in', 0);
             $table->timestamp('finished_in', 0);
             $table->foreignId('activities_id')->constrained();
-            $table->foreignId('timesheets_id')->constrained();
+            $table->foreignId('time_sheets_id')->constrained();
             $table->timestamps();
         });
     }
@@ -28,7 +28,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('timesheet_items');
+        Schema::dropIfExists('time_sheet_items');
         $table->foreignId('activities_id')
                 ->constrained()
                 ->onDelete('cascade');

@@ -42,7 +42,7 @@ class ActivityTypeController extends Controller
         return response()
                     ->json(
                         [
-                            'sucess' => $sucess, 
+                            'success' => $sucess, 
                             'object' => $activityType
                         ]
                     );
@@ -62,7 +62,7 @@ class ActivityTypeController extends Controller
         return response()
                     ->json(
                         [
-                            'sucess' => $sucess, 
+                            'success' => $sucess, 
                             'object' => $activityType
                         ]
                     );
@@ -79,7 +79,7 @@ class ActivityTypeController extends Controller
         return response()
                     ->json(
                         [
-                            'sucess' => $sucess
+                            'success' => $sucess
                         ]
                     );
     }
