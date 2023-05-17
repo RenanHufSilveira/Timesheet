@@ -12,14 +12,14 @@ class ActivityController extends Controller
         $search = request('search');
 
         if($search) {
-            $types = Activity::where('name', 'like','%'.$search.'%')
+            $activities = Activity::where('name', 'like','%'.$search.'%')
             ->orWhere('id', 'like','%'.$search.'%')
             ->get();
-            return $types;
+            return $activities;
         }
 
-        $types = Activity::all();
-        return $types;
+        $activities = Activity::all();
+        return $activities;
     }
 
     public function show($id)
@@ -29,20 +29,20 @@ class ActivityController extends Controller
 
     public function store(Request $request)
     {
-        $sucess = false;
+        $success = false;
         $activity = new Activity();
         $activity->name = $request->name;
         $activity->description = $request->description;
         $activity->activity_types_id = $request->activitytype;
 
         if($activity->save()) {
-            $sucess = true;
+            $success = true;
         }
 
         return response()
                     ->json(
                         [
-                            'success' => $sucess, 
+                            'success' => $success, 
                             'object' => $activity
                         ]
                     );
@@ -50,19 +50,19 @@ class ActivityController extends Controller
 
     public function update(Request $request, $id)
     {
-        $sucess = false;
+        $success = false;
         $activityType = Activity::findOrFail($id);
         $activityType->name = $request->name;
         $activityType->description = $request->description;
         
         if($activityType->save()) {
-            $sucess = true;
+            $success = true;
         }
 
         return response()
                     ->json(
                         [
-                            'success' => $sucess, 
+                            'success' => $success, 
                             'object' => $activityType
                         ]
                     );
@@ -70,16 +70,16 @@ class ActivityController extends Controller
 
     public function destroy($id)
     {
-        $sucess = false;
+        $success = false;
         
         if(Activity::destroy($id)) {
-            $sucess = true;
+            $success = true;
         }
 
         return response()
                     ->json(
                         [
-                            'success' => $sucess
+                            'success' => $success
                         ]
                     );
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Exceptions\StartDateTimeException;
 
 class TimeSheetItem extends Model
 {
@@ -19,5 +20,14 @@ class TimeSheetItem extends Model
     public function activity()
     {
         return $this->belongsTo('App\Models\Activity');
+    }
+
+    // Validar se data inicial é menor que a data final
+    public function timeValidation(int $started, int $finished) :bool
+    {
+        if ($started > $finished) {
+            throw new StartDateTimeException();
+        }
+        return true;
     }
 }
