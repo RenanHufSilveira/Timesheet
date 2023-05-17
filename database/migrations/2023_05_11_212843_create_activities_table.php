@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->text('description');
-            $table->foreignId('activity_type_id')->constrained();
+            $table->foreignId('activity_types_id')->constrained();
             $table->timestamps();
         });
     }
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('activities');
-        $table->foreignId('activity_type_id')
+        $table->foreignId('activity_types_id')
                 ->constrained()
                 ->onDelete('cascade');
     }
