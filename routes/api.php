@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ActivityTypeController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\TimeSheetController;
 
 /*
@@ -26,6 +27,15 @@ Route::get('/activitytypes/{id}', [ActivityTypeController::class, 'show']);
 Route::post('/activitytypes', [ActivityTypeController::class, 'store']);
 Route::put('/activitytypes/{id}', [ActivityTypeController::class, 'update']);
 Route::delete('/activitytypes/{id}', [ActivityTypeController::class, 'destroy']);
+
+/**
+ * Activity Routes
+ */
+Route::get('/activities/list', [ActivityController::class, 'index']);
+Route::get('/activities/{id}', [ActivityController::class, 'show']);
+Route::post('/activities', [ActivityController::class, 'store']);
+Route::put('/activities/{id}', [ActivityController::class, 'update']);
+Route::delete('/activities/{id}', [ActivityController::class, 'destroy']);
 
 /**
  * TimeSheet Routes
