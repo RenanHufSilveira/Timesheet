@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('time_sheet_items', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->text('description');
+            $table->text('description')->nullable();;
             $table->timestamp('started_in', 0);
-            $table->timestamp('finished_in', 0);
+            $table->timestamp('finished_in', 0)->nullable();
             $table->foreignId('activities_id')->constrained();
             $table->foreignId('time_sheets_id')->constrained();
             $table->timestamps();

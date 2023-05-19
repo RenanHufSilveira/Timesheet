@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->text('description');
+            $table->text('description')->nullable();;
             $table->foreignId('activity_types_id')->constrained();
             $table->timestamps();
         });
