@@ -31,14 +31,18 @@ class TimeSheetItemController extends Controller
     public function store(Request $request)
     {
         $sucess = false;
+        $finished = null;
         $item = new TimeSheetItem();
         
-        $item->timeValidation($request->started, $request->finished);
-        
+        if(!$request->filled($request->finished)) {
+            $item->timeValidation($request->started, $request->finished);
+            $finished = date("Y-m-d H:i:s", $request->finished);
+        }
+
         $item->name = $request->name;
-        $item->description = $request->description;
+        $item->description = $request->filled($request->finished) ? $request->description : null;
         $item->started_in = date("Y-m-d H:i:s", $request->started);
-        $item->finished_in = date("Y-m-d H:i:s", $request->finished);
+        $item->finished_in = $finished;
         $item->activities_id = $request->activityid;
         $item->time_sheets_id = $request->timesheetid;
 
@@ -60,13 +64,22 @@ class TimeSheetItemController extends Controller
         $success = false;
         $item = TimeSheetItem::findOrFail($id);
 
-        $item->timeValidation($request->started, $request->finished);
-
-        $item->name = $request->name;
-        $item->description = $request->description;
-        $item->started_in = date("Y-m-d H:i:s", $request->started);
-        $item->finished_in = date("Y-m-d H:i:s", $request->finished);
-        $item->activities_id = $request->activityid;
+        if (!$request->filled($request->name)) {
+            $item->name = $request->name;
+        }
+        if (!$request->filled($request->description)) {
+            $item->description = $request->description;
+        }
+        if (!$request->filled($request->started)) {
+            $item->started_in = date("Y-m-d H:i:s", $request->started);
+        }
+        if (!$request->filled($request->finished)) {
+            $item->timeValidation(strtotime($item->started_in), $request->finished);
+            $item->finished_in = date("Y-m-d H:i:s", $request->finished);
+        }
+        if (!$request->filled($request->activityid)) {
+            $item->activities_id = $request->activityid;
+        }
         
         if($item->save()) {
             $success = true;

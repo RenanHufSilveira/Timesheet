@@ -23,9 +23,9 @@ class TimeSheetItem extends Model
     }
 
     // Validar se data inicial é menor que a data final
-    public function timeValidation(int $started, int $finished) :bool
+    public function timeValidation(int $started, ?int $finished) :bool
     {
-        if ($started > $finished) {
+        if (!empty($finished) && $started > $finished) {
             throw new StartDateTimeException();
         }
         return true;
