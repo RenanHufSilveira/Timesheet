@@ -32,7 +32,7 @@ class TimeSheetController extends Controller
         $success = false;
         $timesheet = new TimeSheet();
         $timesheet->name = $request->name;
-        $timesheet->description = $request->description;
+        $timesheet->description = $request->filled($request->description) ? $request->description : null;
         
         if($timesheet->save()) {
             $success = true;
@@ -51,9 +51,15 @@ class TimeSheetController extends Controller
     {
         $success = false;
         $timesheet = TimeSheet::findOrFail($id);
-        $timesheet->name = $request->name;
-        $timesheet->description = $request->description;
         
+        if (!$request->filled($request->name)) {
+            $timesheet->name = $request->name;
+        }
+
+        if (!$request->filled($request->description)) {
+            $timesheet->description = $request->description;
+        }
+
         if($timesheet->save()) {
             $success = true;
         }

@@ -32,7 +32,7 @@ class ActivityController extends Controller
         $success = false;
         $activity = new Activity();
         $activity->name = $request->name;
-        $activity->description = $request->description;
+        $activity->description = $request->filled($request->description) ? $request->description : null;
         $activity->activity_types_id = $request->activitytype;
 
         if($activity->save()) {
@@ -51,11 +51,17 @@ class ActivityController extends Controller
     public function update(Request $request, $id)
     {
         $success = false;
-        $activityType = Activity::findOrFail($id);
-        $activityType->name = $request->name;
-        $activityType->description = $request->description;
+        $activity = Activity::findOrFail($id);
+
+        if (!$request->filled($request->name)) {
+            $activity->name = $request->name;
+        }
         
-        if($activityType->save()) {
+        if (!$request->filled($request->description)) {
+            $activity->description = $request->description;
+        }
+
+        if($activity->save()) {
             $success = true;
         }
 
@@ -63,7 +69,7 @@ class ActivityController extends Controller
                     ->json(
                         [
                             'success' => $success, 
-                            'object' => $activityType
+                            'object' => $activity
                         ]
                     );
     }

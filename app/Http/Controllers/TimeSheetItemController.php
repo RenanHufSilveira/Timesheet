@@ -40,7 +40,7 @@ class TimeSheetItemController extends Controller
         }
 
         $item->name = $request->name;
-        $item->description = $request->filled($request->finished) ? $request->description : null;
+        $item->description = $request->filled($request->description) ? $request->description : null;
         $item->started_in = date("Y-m-d H:i:s", $request->started);
         $item->finished_in = $finished;
         $item->activities_id = $request->activityid;
@@ -67,16 +67,20 @@ class TimeSheetItemController extends Controller
         if (!$request->filled($request->name)) {
             $item->name = $request->name;
         }
+
         if (!$request->filled($request->description)) {
             $item->description = $request->description;
         }
+
         if (!$request->filled($request->started)) {
             $item->started_in = date("Y-m-d H:i:s", $request->started);
         }
+
         if (!$request->filled($request->finished)) {
             $item->timeValidation(strtotime($item->started_in), $request->finished);
             $item->finished_in = date("Y-m-d H:i:s", $request->finished);
         }
+        
         if (!$request->filled($request->activityid)) {
             $item->activities_id = $request->activityid;
         }
