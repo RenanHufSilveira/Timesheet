@@ -33,7 +33,7 @@ class ActivityTypeController extends Controller
         $success = false;
         $activityType = new ActivityType();
         $activityType->name = $request->name;
-        $activityType->description = $request->description;
+        $activityType->description = $request->filled($request->description) ? $request->description : null;
         
         if($activityType->save()) {
             $success = true;
@@ -52,8 +52,14 @@ class ActivityTypeController extends Controller
     {
         $success = false;
         $activityType = ActivityType::findOrFail($id);
-        $activityType->name = $request->name;
-        $activityType->description = $request->description;
+
+        if (!$request->filled($request->name)) {
+            $activityType->name = $request->name;
+        }
+
+        if (!$request->filled($request->description)) {
+            $activityType->description = $request->description;
+        }
         
         if($activityType->save()) {
             $success = true;
